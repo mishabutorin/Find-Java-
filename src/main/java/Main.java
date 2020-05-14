@@ -14,7 +14,7 @@ public class Main {
                     path = args[i + 1];
                 } else {
                     System.err.println("Чтобы программа работала корректно нужно ввести: [-r] [-d directory] %filename");
-                    System.exit(1);
+                    System.exit(0);
                 }
             } else if (!args[i].equals(path)) {
                 name = args[i];
@@ -54,8 +54,10 @@ public class Main {
         }
         if (check == 0) {
             System.err.println("File not found");
+            System.exit(0);
         }
     }
 }
+
 
 
