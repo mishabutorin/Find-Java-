@@ -2,6 +2,7 @@ import java.io.File;
 
 public class Main {
     private static int check = 0;
+
     public static void main(String[] args) {
         boolean r = false;
         String path = System.getProperty("user.dir");
@@ -14,7 +15,7 @@ public class Main {
                     path = args[i + 1];
                 } else {
                     System.err.println("Чтобы программа работала корректно нужно ввести: [-r] [-d directory] %filename");
-                    System.exit(0);
+                    System.exit(1);
                 }
             } else if (!args[i].equals(path)) {
                 name = args[i];
@@ -43,18 +44,17 @@ public class Main {
             File[] directoryFiles = path.listFiles();
             if (directoryFiles != null) {
                 for (File file : directoryFiles) {
-                    if (!file.isDirectory()) {
-                        if (name.equals(file.getName())) {
-                            System.out.println(file.getAbsolutePath());
-                            check++;
-                        }
+                    if (name.equals(file.getName())) {
+                        System.out.println(file.getAbsolutePath());
+                        check++;
                     }
+
                 }
             }
         }
         if (check == 0) {
             System.err.println("File not found");
-            System.exit(0);
+            System.exit(1);
         }
     }
 }
