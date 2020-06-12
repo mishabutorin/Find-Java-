@@ -1,9 +1,9 @@
 import java.io.File;
 
 public class Main {
-    private int check = 0;
+    private static int check;
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         boolean r = false;
         String path = System.getProperty("user.dir");
         String name = "";
@@ -15,7 +15,7 @@ public class Main {
                 }
                 case "-d": {
                     if (i < args.length - 1) {
-                        path = args[i + 1];
+                        i++;
                     } else {
                         System.err.println("Чтобы программа работала корректно нужно ввести: [-r] [-d directory] %filename");
                         System.exit(1);
@@ -32,7 +32,7 @@ public class Main {
         searchFile(new File(path), name, r);
     }
 
-    private void searchFile(File path, String name, boolean recursive) {
+    private static void searchFile(File path, String name, boolean recursive) {
 
         if (recursive) {
             if (path.isDirectory()) {

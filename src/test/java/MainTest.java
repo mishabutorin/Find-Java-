@@ -22,36 +22,23 @@ public class MainTest {
     }
 
     @Test
-    public void recursive() {
-        main.main(new String[]{"-r", "-d", "testfolder/testfolder2", "new.txt"});
-        File path = new File ("testfolder/testfolder2/new.txt");
-        Assert.assertEquals(path.getAbsolutePath() + "\n", output.toString());
-    }
-
-    @Test
     public void recursiveNF() {
-        main.main(new String[]{"-r", "-d", "testfolder", "name.txt"});
+        Main.main(new String[]{"-r", "-d", "testfolder", "name.txt"});
         File path = new File ("testfolder/name.txt");
         Assert.assertEquals(path.getAbsolutePath() + "\n", output.toString());
     }
 
-    @Test
-    public void withoutrecursive() {
-        main.main(new String[]{"-d", "testfolder", "name.txt"});
-        File path = new File ("testfolder/name.txt");
-        Assert.assertEquals(path.getAbsolutePath() + "\n", output.toString());
-    }
 
     @Test
     public void withoutrecursiveandD() {
-        main.main(new String[]{"pom.xml"});
+        Main.main(new String[]{"pom.xml"});
         File path = new File ("pom.xml");
         Assert.assertEquals(path.getAbsolutePath() + "\n", output.toString());
     }
 
     @Test
     public void recursivetwo() {
-        main.main(new String[]{"-r", "-d", "testfolder", "new.txt"});
+        Main.main(new String[]{"-r", "-d", "testfolder", "new.txt"});
         File path = new File ("testfolder/testfolder2/new.txt");
         File path0 = new File("testfolder/new.txt");
         Assert.assertEquals(path.getAbsolutePath() + "\n" + path0.getAbsolutePath() + "\n", output.toString());
@@ -59,8 +46,15 @@ public class MainTest {
 
     @Test
     public void namefirst() {
-        main.main(new String[]{"name.txt", "-r", "-d", "testfolder"});
+        Main.main(new String[]{"name.txt", "-r", "-d", "testfolder"});
         File path = new File ("testfolder/name.txt");
+        Assert.assertEquals(path.getAbsolutePath() + "\n", output.toString());
+    }
+
+    @Test
+    public void n() {
+        main.main(new String[]{"-r", "-d", "testfolder", "testfolder.txt"});
+        File path = new File ("testfolder/testfolder.txt");
         Assert.assertEquals(path.getAbsolutePath() + "\n", output.toString());
     }
 }
