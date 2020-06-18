@@ -1,11 +1,10 @@
 import java.io.File;
 
 public class Main {
-    private static int check;
 
     public static void main(String[] args) {
         boolean r = false;
-        String path = System.getProperty("user.dir");
+        String path = ".";
         String name = "";
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -15,6 +14,7 @@ public class Main {
                 }
                 case "-d": {
                     if (i < args.length - 1) {
+                        path = args[i + 1];
                         i++;
                     } else {
                         System.err.println("Чтобы программа работала корректно нужно ввести: [-r] [-d directory] %filename");
@@ -23,9 +23,7 @@ public class Main {
                     break;
                 }
                 default: {
-                    if (!args[i].equals(path)) {
-                        name = args[i];
-                    }
+                    name = args[i];
                 }
             }
         }
@@ -33,7 +31,6 @@ public class Main {
     }
 
     private static void searchFile(File path, String name, boolean recursive) {
-
         if (recursive) {
             if (path.isDirectory()) {
                 File[] directoryFiles = path.listFiles();
@@ -41,9 +38,9 @@ public class Main {
                     for (File file : directoryFiles) {
                         if (file.isDirectory()) {
                             searchFile(file, name, true);
-                        } else if (name.equals(file.getName())) {
-                            System.out.println(file.getAbsolutePath());
-                            check++;
+                        }
+                        if (name.equals(file.getName())) {
+                            System.out.println(file.getPath());
                         }
                     }
                 }
@@ -53,16 +50,10 @@ public class Main {
             if (directoryFiles != null) {
                 for (File file : directoryFiles) {
                     if (name.equals(file.getName())) {
-                        System.out.println(file.getAbsolutePath());
-                        check++;
+                        System.out.println(file.getPath());
                     }
-
                 }
             }
-        }
-        if (check == 0) {
-            System.err.println("File not found");
-            System.exit(1);
         }
     }
 }
